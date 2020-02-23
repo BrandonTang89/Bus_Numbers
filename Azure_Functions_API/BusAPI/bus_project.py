@@ -10,16 +10,14 @@
 # 4. Text to Speech to tell the visually impaired about the bus
 
 # Libaries
-import requests, json, numpy as np, time, sys
+import requests, json, numpy as np, time, sys, logging
 from PIL import Image
 from dotenv import load_dotenv
 from os import getenv
 
 
 # Import Keys
-load_dotenv("keys.env")
-prediction_key = getenv("prediction_key")
-ocr_key = getenv("ocr_key")
+load_dotenv()
 
 # Function Run if Unsuccessful
 def if_fail():
@@ -27,8 +25,9 @@ def if_fail():
     #sys.exit()
 
 def check_bus_number(test_image, ocr_image_file = "/tmp/ocr.png"):
-    global ocr_key
-    global prediction_key
+    logging.info("----- Check Bus Numbers Function Called -----")
+    prediction_key = getenv("prediction_key")
+    ocr_key = getenv("ocr_key")
 
     # ## Use Azure Custom Vision to Find Bounding Box of Image
     threshold = 0.2 #Threshold on what probability corresponds to a valid bounding box
@@ -217,6 +216,4 @@ def check_bus_number(test_image, ocr_image_file = "/tmp/ocr.png"):
             #if cancellation_details.error_details:
                 #print("Error details: {}".format(cancellation_details.error_details))
 
-
-test_image = "bus_ext_1.jpeg"
-check_bus_number(test_image)
+#check_bus_number("bus_ext_1.jpeg")

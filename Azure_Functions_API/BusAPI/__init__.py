@@ -7,7 +7,6 @@ from . import bus_project
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
     
-    print("Processing Request")
     temp_image = "/tmp/image.jpeg"
     image_data = req.get_body()
     f = open(temp_image, 'wb')
