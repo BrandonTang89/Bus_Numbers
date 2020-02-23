@@ -16,6 +16,7 @@ ocr_key="94382360c4eae43646bc9beec9a21d58b"
 
 ## Dependencies
 This runs with jupyter and Python 3.7+.
+
 Install the required python dependencies with
 <pre>
 pip3 install -r requirements.txt
