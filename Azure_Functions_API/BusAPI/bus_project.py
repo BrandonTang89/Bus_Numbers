@@ -33,7 +33,6 @@ def check_bus_number(test_image, ocr_image_file = "/tmp/ocr.png"):
     # ## Use Azure Custom Vision to Find Bounding Box of Image
     threshold = 0.2 #Threshold on what probability corresponds to a valid bounding box
     custom_vision_api = "https://southcentralus.api.cognitive.microsoft.com/customvision/v3.0/Prediction/b35dc00f-1a23-4f90-a2f1-c406952ff467/detect/iterations/Bus_Numbers_1/image"
-    # prediction_key = "b5de19956708483c9de4fca851aa568a"
 
     with open(test_image, 'rb') as image_file:
         custom_vision_response = requests.post(custom_vision_api, data=image_file, headers={"Prediction-Key": prediction_key, "Content-Type": "application/octet-stream"} )
@@ -135,8 +134,7 @@ def check_bus_number(test_image, ocr_image_file = "/tmp/ocr.png"):
 
 
     # Sending Image file to Recognise Text API
-    # ocr_key = "3938160c4ede4b649bc9bbec8a2d6825"
-    print("OCR KEY", ocr_key)
+    #print("OCR KEY", ocr_key)
     ocr_api = "https://southcentralus.api.cognitive.microsoft.com/vision/v2.0/recognizeText"
 
     #ocr_image_file= "helloworld.png"
