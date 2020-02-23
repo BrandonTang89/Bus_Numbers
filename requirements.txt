@@ -1,0 +1,7 @@
+azure-functions
+requests
+numpy
+Pillow
+azure-cognitiveservices-vision-computervision
+azure-cognitiveservices-speech==1.8.0
+python-dotenv
