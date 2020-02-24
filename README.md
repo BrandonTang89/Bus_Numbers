@@ -3,7 +3,7 @@ Helping the Visually Impaired Figure Out What Bus is Coming
 
 Using a combination of Object Detection and Optical Character Recognition (OCR), this bus numbers project showcases the application of machine learning in helping the visually impaired "hear" what bus is coming when at the bus stop. 
 
-Test out the API [Here](https://busapiwebpage.z21.web.core.windows.net/) 
+Test out the API [Here](https://busapiwebpage.z21.web.core.windows.net/).
 
 ## Subscription Keys
 Due to the use of Microsoft Azure's Custom Vision Object Detection and Cognitive Services - Optical Character Recognition APIs, I have ommited my own subscriptions keys.
