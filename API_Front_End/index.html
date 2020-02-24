@@ -1,0 +1,251 @@
+<html>
+	<head>
+	<title>Brandon Tang - Bus Numbers API</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimum-scale=1">
+        <link rel="stylesheet" type="text/css" href="./static_files/semantic.min.css">
+        <script src="./static_files/jquery-3.1.1.min.js"></script>
+        <script src="./static_files/semantic.min.js"></script>
+        
+        <style>
+            body{
+                background-color: #d5f4e6;
+            }
+            #big_name{
+                font-size: 60;
+            }
+            .main_content{
+                margin-left: 20px;
+                margin-right: 20px;
+            } 
+            p{
+                font-size: 20;
+            }
+            /* Hides the raw file input */
+            .inputfile { 
+                width: 0.1px;
+                height: 0.1px;
+                opacity: 0;
+                overflow: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+        </style>
+    
+	</head>
+	<body>
+
+        <div class="ui container" style="margin-top: 20px;">
+                <div class="ui segment">
+                    
+                    <div>
+                        <img class="ui medium bordered circular centered image" src="static_files/img/github_avatar.jpeg">
+                        <br>
+                        <div class="ui centered grid">
+                            <div class="one column computer only row">
+                                <h2 class="ui center aligned header" id="big_name">Brandon Tang<br>Bus Numbers API</h2>
+                            </div>
+                            <div class="one column mobile only row">
+                                <h1 class="ui center aligned header" style="font-size: 45px;">Brandon Tang<br>Bus Numbers API</h1>
+                        
+                            </div>
+                        </div>
+                        <br>
+
+                    </div>
+                    
+                    <div class="main_content">
+                        <div class="ui huge dividing header" id="overview">Test Out the API - Turn On Sound</div>
+                        <div class="ui placeholder segment" id="placeholder_segment">
+
+
+                            <div class="ui icon header">
+                            <i class="cloud upload icon"></i>
+                              Upload a JEPG or JPG Image to Test 
+                            </div>
+                            
+                            <label for="image_upload_input" class="ui primary button" id="upload_button">
+                                <i class="ui upload icon"></i> 
+                                Upload image
+                            </label>
+
+                        </div>
+                        
+
+                        <div class="ui container segment" id="selection_segment" style="display: block; text-align: center;">
+                            <div class="ui huge header">Your Image</div>
+                            <img class = "ui large centered rounded image" id="preview_img" src="#" alt="  " style="max-width: 500px;"/>
+                            <br> 
+                            <button class="ui button" onclick="discard_function()">
+                                Cancel
+                            </button>
+                            <button class="ui positive button" onclick="send_to_api()">
+                                Send to API
+                            </button>
+    
+                        </div>
+                        
+                        <div class="ui segment" id="results_segment" style="display: block; overflow:hidden; ">
+                            <div class="ui form">
+                                <div class="field">
+                                    <label>Output</label>
+
+                                    <textarea id="output_text" placeholder="Output"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="ui primary right floated button" id="renew_button" onclick="restore_page()">Try Another Image</div>
+
+                        </div>
+                    
+
+                    <br>
+                    <!-- Hidden Input Elements -->
+                    <input type="file" class="inputfile" id="image_upload_input" />
+
+                    <div class="ui huge dividing header" id="overview">Download Sample Test Images</div>
+                    <a href="./static_files/test_images.zip" download><button class="ui secondary button">Download All Test Images</button></a>
+                    <a download="./static_files/bus_ext_1.jpeg" href="./static_files/bus_ext_1.jpeg" ><button class="ui button">Download Single Test Image</button></a>
+
+                </div>
+                    
+                    
+            </div>
+        </div>
+        
+        <script>
+
+
+        function discard_function(){
+            $('#placeholder_segment').show();
+            $('#results_segment').hide();
+            $('#selection_segment').hide();
+        }
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                $('#preview_img').attr('src', e.target.result);
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function send_to_api(){
+
+            var file = $('#image_upload_input').get(0).files[0];
+            var url = "https://brandonbusapi.azurewebsites.net/api/BusAPI?code=zxQ4wH8qT3UQosqYiof6VGcdrsuS8wsm62fUV6YYBAf6lMsqbNPBQg=="
+
+            //alert(file);
+            $.ajax({
+                url: url,
+                data: file,
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    console.log("Received Successful Response");
+                    console.log(response);
+                    process_success(response);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+            console.log("Request Sent");
+
+            $('#results_segment').show();
+            $('#output_text').html("");
+            $('#output_text').append("Request Sent, Awaiting Reponse...\n");
+
+
+        }
+
+        function process_success(response){
+            response = response.replace('\n', '');
+            $('#output_text').append("Response Received:\n");
+            $('#output_text').append('  "' + response + '"\n');
+
+            $('#renew_button').show();
+
+
+            if(window.speechSynthesis.getVoices().length == 0) {
+                window.speechSynthesis.addEventListener('voiceschanged', function() {
+                    textToSpeech(response);
+                });
+            }
+            else {
+                // languages list available, no need to wait
+                textToSpeech(response);
+            }
+        }
+
+        function textToSpeech(text_to_speak) {
+            // get all voices that browser offers
+            var available_voices = window.speechSynthesis.getVoices();
+
+            // this will hold an english voice
+            var english_voice = '';
+
+            // find voice by language locale "en-US"
+            // if not then select the first voice
+            for(var i=0; i<available_voices.length; i++) {
+                if(available_voices[i].lang === 'en-US') {
+                    english_voice = available_voices[i];
+                    break;
+                }
+            }
+            if(english_voice === '')
+                english_voice = available_voices[0];
+
+            // new SpeechSynthesisUtterance object
+            var utter = new SpeechSynthesisUtterance();
+            utter.rate = 1;
+            utter.pitch = 0.5;
+            utter.text = text_to_speak;
+            utter.voice = english_voice;
+
+            // event after text has been spoken
+            utter.onend = function() {
+                //alert('Speech has finished');
+                console.log("Speech Finished")
+            }
+
+            // speak
+            window.speechSynthesis.speak(utter);
+        }
+
+        function restore_page(){
+            $('#renew_button').hide();
+            $('#placeholder_segment').show();
+            $('#selection_segment').hide();
+            $('#results_segment').hide();
+            
+            
+        }
+
+        $(document).ready(function(){
+            $('#selection_segment').hide()
+            $('#results_segment').hide()
+            $('#image_upload_input').on('change', function(){
+                
+                //alert("Image Uploaded");
+                $('#placeholder_segment').hide();
+                $('#results_segment').hide();
+                $('#selection_segment').show();
+                
+                readURL(this);
+            
+            }); 
+
+
+            
+        })
+
+        </script>
+        
+	</body>
+    
+
+</html>
