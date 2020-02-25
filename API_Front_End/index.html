@@ -29,6 +29,9 @@
                 position: absolute;
                 z-index: -1;
             }
+            li{
+                font-size: 20;
+            }
         </style>
     
 	</head>
@@ -73,12 +76,12 @@
 
                         <div class="ui container segment" id="selection_segment" style="display: block; text-align: center;">
                             <div class="ui huge header">Your Image</div>
-                            <img class = "ui large centered rounded image" id="preview_img" src="#" alt="  " style="max-width: 500px;"/>
+                            <img class = "ui large centered rounded image" id="preview_img" src="#" alt="  " style="max-width: 100%;"/>
                             <br> 
-                            <button class="ui button" onclick="discard_function()">
+                            <button class="ui button" onclick="discard_function()" style="margin-bottom: 5px;">
                                 Cancel
                             </button>
-                            <button class="ui positive button" onclick="send_to_api()">
+                            <button class="ui positive button" onclick="send_to_api()" style="margin-bottom: 5px;">
                                 Send to API
                             </button>
     
@@ -103,9 +106,24 @@
                     <input type="file" class="inputfile" id="image_upload_input" />
 
                     <div class="ui huge dividing header" id="overview">Download Sample Test Images</div>
-                    <a href="./static_files/test_images.zip" download><button class="ui secondary button">Download All Test Images</button></a>
-                    <a download="./static_files/bus_ext_1.jpeg" href="./static_files/bus_ext_1.jpeg" ><button class="ui button">Download Single Test Image</button></a>
-
+                    <a href="./static_files/test_images.zip" download><button class="ui secondary button" style="margin-bottom: 5px;">Download All Test Images</button></a>
+                    <a download="./static_files/bus_ext_1.jpeg" href="./static_files/bus_ext_1.jpeg" ><button class="ui button" style="margin-bottom: 5px;">Download Single Test Image</button></a>
+                    
+                    <div class="ui huge dividing header" id="overview">About the API</div>
+                    <p> This bus number identification API works in 6 main steps performed as a Azure Function</p>
+                    <ol>
+                        <li>Accept binary image data via post request</li>
+                        <li>Send image data to Azure Custom Vision API</li>
+                        <li>Crop image according to bounding box given by Custom Vision API</li>
+                        <li>Send image to Azure Recognize Text API</li>
+                        <li>Identify bus number based on words in response (the last word that begins with a number)</li>
+                        <li>Return response as a text string</li>
+                    </ol>
+                    <div style="overflow: hidden; display: block;">
+                        <a href="https://github.com/BrandonTang89/Bus_Numbers" target="_blank"><div class="ui right floated positive button" style="margin-bottom: 5px;">Link to Github Repo</div></a>
+                        <a href="https://brandontang89.github.io/static_files/reports/bus.pdf" target="_blank"><div class="ui right floated button" style="margin-bottom: 5px;">Download Report</div></a>
+                    </div>
+                    <br>
                 </div>
                     
                     
