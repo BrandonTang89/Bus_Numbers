@@ -24,6 +24,8 @@ Install the required python dependencies with
 pip3 install -r requirements.txt
 </pre>
 
+Learn about jupyter and how to install and use it [here](https://jupyter-notebook-beginner-guide.readthedocs.io/en/latest/what_is_jupyter.html).
+
 ## About the Software
 This bus number identification framework works in 5 main steps performed as a Azure Function
 
