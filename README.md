@@ -23,3 +23,13 @@ Install the required python dependencies with
 <pre>
 pip3 install -r requirements.txt
 </pre>
+
+## About the Software
+This bus number identification framework works in 5 main steps performed as a Azure Function
+
+1. Send image data to Azure Custom Vision API
+2. Crop image according to bounding box given by Custom Vision API
+3. Send image to Azure Recognize Text API
+4. Identify bus number based on words in response (the last word that begins with a number)
+5. Synthesize audio output
+
