@@ -13,7 +13,7 @@
 import requests, json, numpy as np, time, sys, logging
 from PIL import Image
 from dotenv import load_dotenv
-from os import getenv
+from os import getenv, stat
 
 
 # Import Keys
@@ -32,6 +32,16 @@ def check_bus_number(test_image, ocr_image_file = "/tmp/ocr.png"):
     # ## Use Azure Custom Vision to Find Bounding Box of Image
     threshold = 0.2 #Threshold on what probability corresponds to a valid bounding box
     custom_vision_api = "https://southcentralus.api.cognitive.microsoft.com/customvision/v3.0/Prediction/b35dc00f-1a23-4f90-a2f1-c406952ff467/detect/iterations/Bus_Numbers_1/image"
+
+    
+
+    while stat(test_image).st_size > 4100000:
+        image = Image.open(test_image)
+        x = int(image.size[0]*0.9)
+        y = int(image.size[1]*0.9)
+        image = image.resize((x,y), Image.ANTIALIAS)
+        image.save(test_image)
+        logging.info("Lowered Size of Image by 19%")
 
     with open(test_image, 'rb') as image_file:
         custom_vision_response = requests.post(custom_vision_api, data=image_file, headers={"Prediction-Key": prediction_key, "Content-Type": "application/octet-stream"} )
@@ -59,7 +69,7 @@ def check_bus_number(test_image, ocr_image_file = "/tmp/ocr.png"):
             print(bounding_box)
 
     bounding_box = bounding_box['boundingBox']
-    print("Bounding Box:", bounding_box)
+    logging.info("Bounding Box: " +  str(bounding_box))
 
 
     # ## Use Python Image Libary to Crop Image at Bounding Box
@@ -91,7 +101,7 @@ def check_bus_number(test_image, ocr_image_file = "/tmp/ocr.png"):
     width, height = ocr_image.size
     if height > 50:
         ocr_image = ocr_image.resize((int(width*50/height),50),Image.ANTIALIAS) # Ensure the aspect ratio doesn't change
-    print("OCR Ready Image")
+    logging.info("OCR Ready Image")
 
     # Save OCR Ready Image
     ocr_image.save(ocr_image_file)
@@ -100,8 +110,6 @@ def check_bus_number(test_image, ocr_image_file = "/tmp/ocr.png"):
 
     # Fits image into a square of at least 50x50 pixels by padding white space
     def Reformat_Image(ImageFilePath):
-
-        from PIL import Image
         image = Image.open(ImageFilePath, 'r')
         image_size = image.size
         width = image_size[0]
@@ -172,7 +180,7 @@ def check_bus_number(test_image, ocr_image_file = "/tmp/ocr.png"):
     # Extract Lines from Response
     lines = json_response["recognitionResult"]["lines"]
     if len(lines) == 0:
-        print("No Text Identified...")
+        logging.info("No Text Identified...")
 
     # Finding first word that begins with a number
     predicted_number = ""
@@ -184,12 +192,12 @@ def check_bus_number(test_image, ocr_image_file = "/tmp/ocr.png"):
                 predicted_number = word["text"]
                 break
     if predicted_number == "":
-        print("Failed to Get a Number...")
+        logging.info("Failed to Get a Number...")
         if_fail()
         return "-2"
         
     else:
-        print("Predicted Bus Number:", predicted_number)
+        logging.info("Predicted Bus Number: " +  predicted_number)
 
     return (predicted_number)
     # ## Synthesise Speech to Output File
