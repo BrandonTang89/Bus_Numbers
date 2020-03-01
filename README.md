@@ -3,13 +3,13 @@ Helping the Visually Impaired Figure Out What Bus is Coming
 
 Using a combination of Object Detection and Optical Character Recognition (OCR), this bus numbers project showcases the application of machine learning in helping the visually impaired "hear" what bus is coming when at the bus stop. 
 
-Test out the API [Here](https://busapiwebpage.z21.web.core.windows.net/).
+Test out the API [Here](https://brandontang89.github.io/Bus_Numbers/).
 
 ## About
 This bus numbers project analyses an image and extracts the location of the bus number on a bus and then sends a cropped version of the image to an OCR API on Microsoft Azure to extract the bus number. This information is then encoded into an audio file which is played to the user (the visually impaired).
 
 ### Testing the Software
-Head to [this website](https://busapiwebpage.z21.web.core.windows.net/) to test out the the project.
+Head to [this website](https://brandontang89.github.io/Bus_Numbers/) to test out the the project.
 
 The website works in 5 main steps performed by Azure Functions.
 1. Send image data to Azure Custom Vision API
