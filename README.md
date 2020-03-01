@@ -65,4 +65,4 @@ Learn about jupyter and how to install and use it [here](https://jupyter-noteboo
 
 Also note that the paths in the jupyter files are written in unix style, thus take note to change the file paths if running on a windows machine.
 
-**Files for the Website to test the API are in the /docs directory**
+**Files for the website to test the API are in the /docs directory**
