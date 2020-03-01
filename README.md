@@ -21,6 +21,17 @@ The website works in 5 main steps performed by Azure Functions.
 ### Detailed Analysis
 Open the "bus_project.ipynb" jupyter notebook to see how it works and test it out. 
 
+#### Example Execution
+Input Image:<br>
+<img src="https://raw.githubusercontent.com/BrandonTang89/Bus_Numbers/master/Documents/example_images/bus_high_res_1.jpg" height="400">
+
+Cropped Bounding Box:<br>
+![Cropped Bounding Box](https://raw.githubusercontent.com/BrandonTang89/Bus_Numbers/master/Documents/example_images/Bounding_Box.png "Image Cropped to Bounding Box")
+
+Image Further Cropped for OCR:<br>
+![OCR Image](https://raw.githubusercontent.com/BrandonTang89/Bus_Numbers/master/Documents/example_images/Cropped.png "Image Cropped for OCR")
+
+Conclusion: **12**
 ## Subscription Keys
 Due to the use of Microsoft Azure's Custom Vision Object Detection and Cognitive Services - Optical Character Recognition APIs, I have ommited my own subscriptions keys.
 
