@@ -1,6 +1,9 @@
 # Secret Files
 Azure_Functions_API/Bus_API/.env
 
+# Instance Generated Files
+bus_number.wav
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
