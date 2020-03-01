@@ -9,7 +9,7 @@ Test out the API [Here](https://busapiwebpage.z21.web.core.windows.net/).
 This bus numbers project analyses an image and extracts the location of the bus number on a bus and then sends a cropped version of the image to an OCR API on Microsoft Azure to extract the bus number. This information is then encoded into an audio file which is played to the user (the visually impaired).
 
 ### Testing the Software
-Head to [this website]((https://busapiwebpage.z21.web.core.windows.net/) to test out the the project.
+Head to [this website](https://busapiwebpage.z21.web.core.windows.net/) to test out the the project.
 
 The website works in 5 main steps performed by Azure Functions.
 1. Send image data to Azure Custom Vision API
