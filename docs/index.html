@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 	<head>
 	<title>Brandon Tang - Bus Numbers API</title>
@@ -10,6 +9,9 @@
         <style>
             body{
                 background-color: #d5f4e6;
+            }
+            #big_name{
+                font-size: 60;
             }
             .main_content{
                 margin-left: 20px;
@@ -43,7 +45,7 @@
                         <br>
                         <div class="ui centered grid">
                             <div class="one column computer only row">
-                                <h2 class="ui center aligned header" style="font-size: 60px;">Brandon Tang<br>Bus Numbers API</h2>
+                                <h2 class="ui center aligned header" id="big_name">Brandon Tang<br>Bus Numbers API</h2>
                             </div>
                             <div class="one column mobile only row">
                                 <h1 class="ui center aligned header" style="font-size: 45px;">Brandon Tang<br>Bus Numbers API</h1>
@@ -90,7 +92,7 @@
                                 <div class="field">
                                     <label>Output</label>
 
-                                    <textarea id="output_text" placeholder="Output" readonly></textarea>
+                                    <textarea id="output_text" placeholder="Output"></textarea>
                                 </div>
                             </div>
                             <br>
@@ -165,6 +167,7 @@
                     process_success(response);
                 },
                 error: function(error) {
+                    alert("An Error has Occured with the API Call" + toString(error));
                     console.log(error);
                 }
             });
